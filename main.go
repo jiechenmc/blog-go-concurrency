@@ -28,19 +28,46 @@ func copyToDestination(src, dest string) (string, error) {
 	return dest, err
 }
 
+// func main() {
+// 	files, err := os.ReadDir("./folderA")
+// 	check(err)
+
+// 	var wg sync.WaitGroup
+// 	for _, file := range files {
+// 		wg.Add(1)
+// 		go func(file os.DirEntry) {
+// 			src := "./folderA/" + file.Name()
+// 			dest := "./folderB/" + file.Name()
+// 			_, err = copyToDestination(src, dest)
+// 			if err != nil {
+// 				fmt.Printf("%s -> %s ❌\n", src, dest)
+// 			} else {
+// 				fmt.Printf("%s -> %s ✅\n", src, dest)
+// 			}
+// 			defer wg.Done()
+// 		}(file)
+// 	}
+// 	wg.Wait()
+// }
+
 func main() {
 	files, err := os.ReadDir("./folderA")
 	check(err)
+
+	// var wg sync.WaitGroup
 	for _, file := range files {
-		go func() {
-			src := "./folderA/" + file.Name()
-			dest := "./folderB/" + file.Name()
-			_, err = copyToDestination(src, dest)
-			if err != nil {
-				fmt.Printf("%s -> %s ❌\n", src, dest)
-			} else {
-				fmt.Printf("%s -> %s ✅\n", src, dest)
-			}
-		}()
+		// wg.Add(1)
+		// go func(file os.DirEntry) {
+		src := "./folderA/" + file.Name()
+		dest := "./folderB/" + file.Name()
+		_, err = copyToDestination(src, dest)
+		if err != nil {
+			fmt.Printf("%s -> %s ❌\n", src, dest)
+		} else {
+			fmt.Printf("%s -> %s ✅\n", src, dest)
+		}
+		// defer wg.Done()
+		// }(file)
 	}
+	// wg.Wait()
 }
